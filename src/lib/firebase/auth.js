@@ -1,3 +1,11 @@
+/**
+ * FIREBASE AUTHENTICATION MODULE
+ * 
+ * This module provides authentication functions for the application, including
+ * Google OAuth sign-in, sign-out, and authentication state listeners.
+ * It wraps Firebase Auth methods to provide a consistent interface for the app.
+ */
+
 import {
   GoogleAuthProvider,
   signInWithPopup,
@@ -7,14 +15,17 @@ import {
 
 import { auth } from "@/src/lib/firebase/clientApp";
 
+// Listen for authentication state changes (user sign-in/sign-out)
 export function onAuthStateChanged(cb) {
   return _onAuthStateChanged(auth, cb);
 }
 
+// Listen for ID token changes (used for server-side authentication)
 export function onIdTokenChanged(cb) {
   return _onIdTokenChanged(auth, cb);
 }
 
+// Sign in user with Google OAuth using popup
 export async function signInWithGoogle() {
   const provider = new GoogleAuthProvider();
 
@@ -25,6 +36,7 @@ export async function signInWithGoogle() {
   }
 }
 
+// Sign out the current user
 export async function signOut() {
   try {
     return auth.signOut();
