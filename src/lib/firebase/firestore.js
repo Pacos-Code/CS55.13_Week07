@@ -59,6 +59,7 @@ const updateWithRating = async (
     timestamp: Timestamp.fromDate(new Date()),
   });
 };
+
 export async function addReviewToRestaurant(db, restaurantId, review) {
   if (!restaurantId) {
           throw new Error("No restaurant ID has been provided.");
