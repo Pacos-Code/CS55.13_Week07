@@ -12,6 +12,18 @@ import { updateRestaurantImage } from "@/src/lib/firebase/storage.js";
 
 const ReviewDialog = dynamic(() => import("@/src/components/ReviewDialog.jsx"));
 
+/**
+ * Restaurant component displays a single restaurant page with details,
+ * live updates via Firestore snapshot, optional review dialog for logged-in users,
+ * and image upload handling that persists to Firebase Storage and Firestore.
+ *
+ * @param {Object} props
+ * @param {string} props.id - Restaurant ID.
+ * @param {Object} props.initialRestaurant - Initial restaurant data for SSR/first paint.
+ * @param {string} [props.initialUserId] - Initial user ID if known on the server.
+ * @param {React.ReactNode} props.children - Nested content (e.g., reviews list).
+ * @returns {JSX.Element}
+ */
 export default function Restaurant({
   id,
   initialRestaurant,

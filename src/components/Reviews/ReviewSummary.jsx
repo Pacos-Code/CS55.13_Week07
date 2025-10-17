@@ -4,6 +4,14 @@ import { getReviewsByRestaurantId } from "@/src/lib/firebase/firestore.js";
 import { getAuthenticatedAppForUser } from "@/src/lib/firebase/serverApp";
 import { getFirestore } from "firebase/firestore";
 
+/**
+ * GeminiSummary fetches reviews for a restaurant and generates a concise
+ * one-sentence summary using Google Genkit with the Gemini model.
+ * Falls back to an error message if summarization fails.
+ *
+ * @param {{ restaurantId: string }} props - Contains the restaurant ID.
+ * @returns {Promise<JSX.Element>} Summary block or error paragraph.
+ */
 export async function GeminiSummary({ restaurantId }) {
   const { firebaseServerApp } = await getAuthenticatedAppForUser();
   const reviews = await getReviewsByRestaurantId(
@@ -47,6 +55,12 @@ export async function GeminiSummary({ restaurantId }) {
     return <p>Error summarizing reviews.</p>;
   }
 }
+/**
+ * GeminiSummarySkeleton renders a lightweight placeholder while the
+ * summary is being generated server-side.
+ *
+ * @returns {JSX.Element}
+ */
 export function GeminiSummarySkeleton() {
   return (
     <div className="restaurant__review_summary">

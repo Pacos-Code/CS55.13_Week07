@@ -26,6 +26,13 @@ import {
 
 import { db } from "@/src/lib/firebase/clientApp";
 
+/**
+ * Update the `photo` field of a restaurant document to reference a public image URL.
+ *
+ * @param {string} restaurantId - Target restaurant document ID
+ * @param {string} publicImageUrl - Publicly accessible image URL
+ * @returns {Promise<void>}
+ */
 export async function updateRestaurantImageReference(
   restaurantId,
   publicImageUrl
@@ -36,6 +43,15 @@ export async function updateRestaurantImageReference(
   }
 }
 
+/**
+ * Atomically updates aggregate rating fields on a restaurant document and
+ * writes the individual rating document within a transaction.
+ *
+ * @param {import("firebase/firestore").Transaction} transaction
+ * @param {import("firebase/firestore").DocumentReference} docRef
+ * @param {import("firebase/firestore").DocumentReference} newRatingDocument
+ * @param {{ rating: number, text: string, userId?: string }} review
+ */
 const updateWithRating = async (
   transaction,
   docRef,
@@ -60,6 +76,15 @@ const updateWithRating = async (
   });
 };
 
+/**
+ * Add a review to a restaurant using a Firestore transaction, updating
+ * aggregate fields and inserting the new rating document.
+ *
+ * @param {import("firebase/firestore").Firestore} db - Firestore instance
+ * @param {string} restaurantId - Target restaurant ID
+ * @param {{ rating: number, text: string, userId?: string }} review - Review payload
+ * @returns {Promise<void>}
+ */
 export async function addReviewToRestaurant(db, restaurantId, review) {
   if (!restaurantId) {
           throw new Error("No restaurant ID has been provided.");
