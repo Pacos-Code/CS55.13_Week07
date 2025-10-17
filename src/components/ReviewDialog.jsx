@@ -6,6 +6,19 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 import RatingPicker from "@/src/components/RatingPicker.jsx";
 import { handleReviewFormSubmission } from "@/src/app/actions.js";
 
+/**
+ * ReviewDialog component renders a modal for submitting a restaurant review.
+ * It uses a form action (Server Action) to submit the review and hides itself on submit.
+ *
+ * @param {Object} props
+ * @param {boolean} props.isOpen - Whether the dialog is currently open.
+ * @param {Function} props.handleClose - Callback to close the dialog.
+ * @param {{ rating: number, text: string }} props.review - Current review state.
+ * @param {(value: string|number, name: "rating"|"text") => void} props.onChange - Change handler for review inputs.
+ * @param {string} props.userId - ID of the user submitting the review.
+ * @param {string} props.id - Restaurant ID being reviewed.
+ * @returns {JSX.Element}
+ */
 const ReviewDialog = ({
   isOpen,
   handleClose,
