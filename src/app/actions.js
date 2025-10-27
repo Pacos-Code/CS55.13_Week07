@@ -18,6 +18,8 @@ export async function handleReviewFormSubmission(data) {
             rating: data.get("rating"),
 
             // This came from a hidden form field.
-            userId: data.get("userId"),
+            //Instead of letting userid be passed from client in hidden form field, we use the server-side firebase auth result for currentuser.uid
+            //this will be more secure and avoid potential security vulnerabilities
+            userId: currentUser.uid,
     });
 }
